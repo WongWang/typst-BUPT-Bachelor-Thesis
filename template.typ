@@ -670,10 +670,13 @@
   {
     set page(
       header: none,
-      footer: roman-footer,
-      numbering: "I",
+      footer: none,
+      // 按 2026 年 4 月 23 日的模板更新，这里不再需要页码。如果之后又需要页码了可以注释上一行并取消注释下两行
+      // footer: roman-footer,
+      // numbering: "I",
     )
-    counter(page).update(1)
+    // 按 2026 年 4 月 23 日的模板更新，这里不再需要页码。如果之后又需要页码了取消注释下一行
+    // counter(page).update(1)
     pagebreak(weak: true, to: "odd") // 从奇数页开始
 
     v(6.11mm)
@@ -704,11 +707,13 @@
 
   // ==================== 英文摘要 ====================
   {
+    pagebreak(weak: true, to: "odd") // 从奇数页开始
     set page(
       header: none,
-      footer: roman-footer,
+      footer: none,
+      // 按 2026 年 4 月 23 日的模板更新，这里不再需要页码。如果之后又需要页码了可以注释上一行并取消注释下一行
+      // footer: roman-footer,
     )
-    pagebreak(weak: true, to: "odd") // 从奇数页开始
 
     v(1.53mm)
     {
@@ -741,11 +746,15 @@
 
   // ==================== 目录 ====================
   {
+    pagebreak(weak: true, to: "odd") // 从奇数页开始
     set page(
       header: none,
       footer: roman-footer,
+      // 按 2026 年 4 月 23 日的模板更新，罗马数字页码从这里开始。如果之后又改成从摘要开始了可以注释下一行
+      numbering: "I",
     )
-    pagebreak(weak: true, to: "odd") // 从奇数页开始
+    // 按 2026 年 4 月 23 日的模板更新，这里不再需要页码。如果之后又改成从摘要开始了可以注释下一行
+    counter(page).update(1)
 
     v(1.8mm)
     {
