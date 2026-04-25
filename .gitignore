@@ -1,0 +1,17 @@
+*
+
+!logo/
+!logo/*
+
+!images/
+!images/*
+
+!.gitignore
+
+!*.typ
+
+!*.bib
+
+!*.pdf
+
+!README.md
