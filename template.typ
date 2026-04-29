@@ -86,8 +86,10 @@
   let cols = args.named().at("columns", default: header.len())
   let n-cols = if type(cols) == int { cols } else { cols.len() }
 
-  // 用状态区分首页/续页
-  let is-first = state("cont-tbl-" + repr(label), true)
+  // 用 state 区分表处于首页或续页
+  // 无 label 的表之间用 caption 区分，避免所有没有 label 的表共享状态
+  let table-key = if label != none { repr(label) } else { repr(caption) }
+  let is-first = state("cont-tbl-" + table-key, true)
 
   let tbl = table(
     stroke: none,
@@ -422,30 +424,16 @@
     }
   }
   // 公式格式
-  // 单个公式：上 1.94 mm，下 -6.45 mm。
-  // 如果后面紧接另一块级元素（公式、图、表等），则取消 -6.45 mm 以防重叠。
-  show math.equation.where(block: true): it => context {
-    let loc = it.location()
-    let followups = query(selector.or(
-      math.equation.where(block: true),
-      figure,
-    ).after(loc))
-    let has-close-followup = followups.any(fo => (
-      fo.location() != loc
-      and fo.location().page() == loc.page()
-      and (fo.location().position().y - loc.position().y) < 2cm
-    ))
+  show math.equation.where(block: true): it => {
     v(1.94mm)
     it
-    if not has-close-followup {
-      v(-6.45mm)
-    }
+    v(1.2mm)
   }
 
   // 图表标题（楷体，五号）
   show figure.caption: it => {
     set text(font: ("Times New Roman", "KaiTi"), size: wuhao)
-    it
+    block(sticky: true)[#it]
   }
   // 图标题与图之间的间距（标题上方距离图的距离）
   set figure(gap: 4.87mm)
