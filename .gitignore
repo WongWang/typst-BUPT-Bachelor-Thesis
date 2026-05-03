@@ -6,6 +6,9 @@
 !images/
 !images/*
 
+!fonts/
+!fonts/*
+
 !.gitignore
 
 !*.typ
